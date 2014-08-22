@@ -1,0 +1,21 @@
+
+/* Class = "IBUILabel"; text = "Sound"; ObjectID = "4sG-pi-Ldt"; */
+"4sG-pi-Ldt.text" = "Sound";
+
+/* Class = "IBUILabel"; text = "0:00"; ObjectID = "97q-dY-20y"; */
+"97q-dY-20y.text" = "0:00";
+
+/* Class = "IBUINavigationItem"; title = "Add sound"; ObjectID = "9iB-c2-Mrs"; */
+"9iB-c2-Mrs.title" = "Sound hinzufügen";
+
+/* Class = "IBUITextField"; placeholder = "Do you have Bock auf Ibiza?"; ObjectID = "LqS-Nd-eaP"; */
+"LqS-Nd-eaP.placeholder" = "Habt ihr Bock auf Ibiza?";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "WKf-Ki-iY5"; */
+"WKf-Ki-iY5.text" = "Name";
+
+/* Class = "IBUIButton"; normalTitle = "record"; ObjectID = "k7n-Jg-DRm"; */
+"k7n-Jg-DRm.normalTitle" = "aufnehmen";
+
+/* Class = "IBUINavigationItem"; title = "Oberobergeil!"; ObjectID = "yts-o6-mnW"; */
+"yts-o6-mnW.title" = "Oberobergeil!";

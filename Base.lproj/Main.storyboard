@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="07S-Dw-Av8">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
@@ -18,7 +19,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Oberobergeil!" id="yts-o6-mnW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DX4-e0-KfY"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DX4-e0-KfY">
+                            <connections>
+                                <segue destination="1sJ-ru-wNQ" kind="presentation" id="Un6-F4-rGQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -30,6 +35,106 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="951" y="136"/>
+        </scene>
+        <!--Add Sound-->
+        <scene sceneID="JcD-hr-iRk">
+            <objects>
+                <tableViewController id="2hN-wB-J7c" customClass="AddSampleViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uxY-Kd-SFh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="aJc-0J-wsu">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="1XK-xe-Xvc">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1XK-xe-Xvc" id="BqE-Uv-hRI">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKf-Ki-iY5">
+                                                    <rect key="frame" x="16" y="13" width="64" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Do you have bock auf Ibiza?" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="LqS-Nd-eaP">
+                                                    <rect key="frame" x="99" y="9" width="213" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <connections>
+                                                        <action selector="updateSaveBtn" destination="2hN-wB-J7c" eventType="editingChanged" id="cON-g0-xLv"/>
+                                                        <outlet property="delegate" destination="2hN-wB-J7c" id="P1o-mx-VUu"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="66" id="18c-vj-N0K">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="18c-vj-N0K" id="d4O-xh-sZX">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Sound" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sG-pi-Ldt">
+                                                    <rect key="frame" x="16" y="13" width="67" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7n-Jg-DRm">
+                                                    <rect key="frame" x="99" y="8" width="109" height="30"/>
+                                                    <state key="normal" title="record">
+                                                        <color key="titleColor" red="0.9332540761" green="0.065893878569999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="cancelRecording" destination="2hN-wB-J7c" eventType="touchUpOutside" id="8Jz-Su-2Cb"/>
+                                                        <action selector="startRecording" destination="2hN-wB-J7c" eventType="touchDown" id="wZo-UM-yPT"/>
+                                                        <action selector="stopRecording" destination="2hN-wB-J7c" eventType="touchUpInside" id="s3K-XW-ULC"/>
+                                                    </connections>
+                                                </button>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4ld-0Y-fFq">
+                                                    <rect key="frame" x="99" y="46" width="201" height="2"/>
+                                                </progressView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97q-dY-20y">
+                                                    <rect key="frame" x="216" y="12" width="84" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="2hN-wB-J7c" id="hq0-96-mKi"/>
+                            <outlet property="delegate" destination="2hN-wB-J7c" id="A3U-9V-R1t"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Sound" id="9iB-c2-Mrs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PaC-6U-CKf">
+                            <connections>
+                                <action selector="dismiss" destination="2hN-wB-J7c" id="SXo-dt-qY8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="5yL-IE-WU5">
+                            <connections>
+                                <action selector="save" destination="2hN-wB-J7c" id="I8H-fl-61f"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nameField" destination="LqS-Nd-eaP" id="Pr9-hS-qxU"/>
+                        <outlet property="recordingDurationLabel" destination="97q-dY-20y" id="bGQ-X0-txH"/>
+                        <outlet property="recordingProgress" destination="4ld-0Y-fFq" id="C30-jn-NEQ"/>
+                        <outlet property="saveBtn" destination="5yL-IE-WU5" id="PDm-gg-j3R"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="38l-8d-MzM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1847" y="127"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S68-OT-QhK">
@@ -56,6 +161,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUV-fn-C5h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="211" y="737"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gGN-BC-gp1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1sJ-ru-wNQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xxn-fl-icU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2hN-wB-J7c" kind="relationship" relationship="rootViewController" id="XMl-bZ-gGf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VEo-2m-URI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1399" y="136"/>
         </scene>
     </scenes>
 </document>
