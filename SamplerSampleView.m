@@ -12,7 +12,6 @@
 
 - (void)addNameLabel;
 - (void)addCircle;
-- (void)tapped;
 
 @end
 
@@ -23,10 +22,6 @@
     if (self) {
         [self addCircle];
         [self addNameLabel];
-        
-        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
-        self.userInteractionEnabled = YES;
-        [self addGestureRecognizer:recognizer];
     }
     return self;
 }
@@ -72,22 +67,19 @@
 - (void)addCircle
 {
     CGSize size = self.bounds.size;
-    CGFloat lineWidth = 5;
+    CGFloat lineWidth = 2;
     
     _circleLayer = [[CAShapeLayer layer] retain];
     _circleLayer.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, size.width - lineWidth * 2, size.height - lineWidth * 2) cornerRadius:size.height / 2].CGPath;
     
     _circleLayer.position = CGPointMake(lineWidth, lineWidth);
-    CGColorRef color = [UIColor colorWithRed:59/255.0 green:187/255.0 blue:1 alpha:1].CGColor;
-    _circleLayer.strokeColor = color;
+    CGColorRef strokeColor = [UIColor colorWithRed:30/255.0 green:157/255.0 blue:1 alpha:1].CGColor;
+    _circleLayer.strokeColor = strokeColor;
+    CGColorRef fillColor = [UIColor colorWithRed:59/255.0 green:187/255.0 blue:1 alpha:1].CGColor;
+    _circleLayer.fillColor = fillColor;
     _circleLayer.lineWidth = lineWidth;
     
     [self.layer addSublayer:_circleLayer];
-}
-
-- (void)tapped
-{
-    [self spinWithDuration:3];
 }
 
 @end

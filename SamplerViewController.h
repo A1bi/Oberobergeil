@@ -10,6 +10,9 @@
 #import "AddSampleViewController.h"
 
 @interface SamplerViewController : UIViewController <AddSampleViewControllerDelegate>
+{
+    NSMutableDictionary *_samples;
+}
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

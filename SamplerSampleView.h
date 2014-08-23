@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SamplerSampleView : UIView
+@interface SamplerSampleView : UIControl
 {
     CAShapeLayer *_circleLayer;
 }

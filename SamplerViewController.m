@@ -10,18 +10,35 @@
 #import "SamplerSampleView.h"
 #import "Sample.h"
 
+#define MAX_SAMPLE_COLUMNS 4
+#define SAMPLE_MARGIN_RATIO .2
+
 @interface SamplerViewController ()
+
+- (void)addSampleViewForSample:(Sample *)sample;
+- (void)sampleViewTapped:(SamplerSampleView *)sampleView;
 
 @end
 
 @implementation SamplerViewController
             
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    SamplerSampleView *sample = [[SamplerSampleView alloc] initWithFrame:CGRectMake(50, 100, 70, 70)];
-    sample.nameLabel.text = @"Habt ihr Bock?";
-    [self.view addSubview:sample];
+    _samples = [[NSMutableDictionary alloc] init];
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sample"];
+    NSArray *samples = [_managedObjectContext executeFetchRequest:request error:nil];
+    for (Sample *sample in samples) {
+        [self addSampleViewForSample:sample];
+    }
+}
+
+- (void)dealloc
+{
+    [_samples release];
+    [super dealloc];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -34,12 +51,46 @@
     }
 }
 
+- (void)sampleViewTapped:(SamplerSampleView *)sampleView
+{
+    Sample *sample = _samples[[NSValue valueWithNonretainedObject:sampleView]];
+    if (!sample.player.playing) {
+        [sample.player play];
+        [sampleView spinWithDuration:sample.duration];
+    }
+}
+
+- (void)addSampleViewForSample:(Sample *)sample
+{
+    CGFloat columnWidth = self.view.bounds.size.width / MAX_SAMPLE_COLUMNS,
+            marginWidth = columnWidth * SAMPLE_MARGIN_RATIO,
+            sampleWidth = columnWidth - marginWidth - marginWidth / MAX_SAMPLE_COLUMNS;
+    NSInteger numberOfSamples = _samples.allKeys.count,
+              column = numberOfSamples % MAX_SAMPLE_COLUMNS,
+              row = numberOfSamples / MAX_SAMPLE_COLUMNS;
+    
+    CGRect sampleRect;
+    sampleRect.size = CGSizeMake(sampleWidth, sampleWidth);
+    sampleRect.origin = CGPointMake(column * (sampleWidth + marginWidth) + marginWidth, row * columnWidth + marginWidth + 100);
+    
+    SamplerSampleView *sampleView = [[SamplerSampleView alloc] initWithFrame:sampleRect];
+    sampleView.nameLabel.text = sample.name;
+    [sampleView addTarget:self action:@selector(sampleViewTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sampleView];
+    
+    _samples[[NSValue valueWithNonretainedObject:sampleView]] = sample;
+}
+
 #pragma mark AddSampleViewController delegate
 
 - (void)addSampleViewController:(AddSampleViewController *)controller didFinishWithSample:(Sample *)sample
 {
-    NSError *error = nil;
-    [sample.managedObjectContext save:&error];
+    if (sample) {
+        NSError *error = nil;
+        [sample.managedObjectContext save:&error];
+        
+        [self addSampleViewForSample:sample];
+    }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
