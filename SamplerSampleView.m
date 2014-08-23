@@ -40,13 +40,20 @@
 
 - (void)spinWithDuration:(NSTimeInterval)duration
 {
-    CABasicAnimation *drawAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    drawAnimation.duration = duration;
-    drawAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
-    drawAnimation.toValue = [NSNumber numberWithFloat:1.0f];
-    drawAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    CABasicAnimation *circle = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    circle.fromValue = @(0);
+    circle.toValue = @(1);
     
-    [_circleLayer addAnimation:drawAnimation forKey:@"drawCircleAnimation"];
+    CAKeyframeAnimation *alpha = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    alpha.values = @[@(1), @(.5), @(1)];
+    alpha.keyTimes = @[@(0), @(0.05), @(1)];
+    
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    group.duration = duration;
+    group.animations = @[circle, alpha];
+    group.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    
+    [_circleLayer addAnimation:group forKey:@"spinAnimation"];
 }
 
 - (void)addNameLabel

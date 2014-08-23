@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddSampleViewController.h"
 
-@interface SamplerViewController : UIViewController
+@interface SamplerViewController : UIViewController <AddSampleViewControllerDelegate>
 
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 

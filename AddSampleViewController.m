@@ -7,10 +7,16 @@
 //
 
 #import "AddSampleViewController.h"
+#import "Sample.h"
 
 #define MAX_RECORDING_DURATION 30
 
 @interface AddSampleViewController ()
+
+@property (retain, nonatomic) IBOutlet UILabel *recordingDurationLabel;
+@property (retain, nonatomic) IBOutlet UIProgressView *recordingProgress;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem *saveBtn;
+@property (retain, nonatomic) IBOutlet UITextField *nameField;
 
 - (void)updateRecordingDuration;
 - (void)updateRecordingDurationAndScheduleNextUpdate;
@@ -25,12 +31,12 @@
     [super viewDidLoad];
     
     NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"recording.m4a"];
-    NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+    _tmpSampleURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
     
     NSDictionary *settings = @{ AVEncoderAudioQualityKey: @(AVAudioQualityHigh), AVEncoderBitRateKey: @(16), AVNumberOfChannelsKey: @(2), AVSampleRateKey: @(44100), AVFormatIDKey: @(kAudioFormatAppleLossless) };
     
     NSError *error = nil;
-    _recorder = [[AVAudioRecorder alloc] initWithURL:fileURL settings:settings error:&error];
+    _recorder = [[AVAudioRecorder alloc] initWithURL:_tmpSampleURL settings:settings error:&error];
     if (error) {
         NSLog(@"error: %@", [error localizedDescription]);
     } else {
@@ -68,12 +74,26 @@
 - (IBAction)dismiss
 {
     [_recorder deleteRecording];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [_delegate addSampleViewController:self didFinishWithSample:nil];
 }
 
 - (IBAction)save
 {
+    NSError *error = nil;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSURL *dst = [manager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+    dst = [dst URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf", [NSProcessInfo processInfo].globallyUniqueString]];
     
+    if (!error) {
+        [manager moveItemAtURL:_tmpSampleURL toURL:dst error:&error];
+        if (!error) {
+            Sample *sample = [NSEntityDescription insertNewObjectForEntityForName:@"Sample" inManagedObjectContext:_managedObjectContext];
+            sample.url = [NSString stringWithFormat:@"%@", dst];
+            sample.name = _nameField.text;
+            
+            [_delegate addSampleViewController:self didFinishWithSample:sample];
+        }
+    }
 }
 
 - (IBAction)startRecording
