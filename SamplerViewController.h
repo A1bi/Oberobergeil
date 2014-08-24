@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AddSampleViewController.h"
 
-@interface SamplerViewController : UIViewController <AddSampleViewControllerDelegate>
+@interface SamplerViewController : UIViewController <AddSampleViewControllerDelegate, UIScrollViewDelegate>
 {
     NSMutableDictionary *_samples;
+    NSArray *_addedSampleViews;
 }
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

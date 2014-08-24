@@ -16,5 +16,6 @@
 @property (nonatomic, readonly) UILabel *nameLabel;
 
 - (void)spinWithDuration:(NSTimeInterval)duration;
+- (void)popUpAfterDelay:(NSTimeInterval)delay;
 
 @end

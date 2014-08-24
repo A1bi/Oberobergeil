@@ -51,6 +51,20 @@
     [_circleLayer addAnimation:group forKey:@"spinAnimation"];
 }
 
+- (void)popUpAfterDelay:(NSTimeInterval)delay
+{
+    CAKeyframeAnimation *popUp = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    popUp.values = @[@(0), @(1.1), @(1)];
+    popUp.keyTimes = @[@(0), @(0.8), @(1)];
+    popUp.beginTime = CACurrentMediaTime() + delay;
+    popUp.duration = .4;
+    popUp.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    popUp.delegate = self;
+    
+    [self.layer addAnimation:popUp forKey:@"popUpAnimation"];
+    [self.layer setTransform:CATransform3DMakeScale(0, 0, 1)];
+}
+
 - (void)addNameLabel
 {
     CGRect rect = CGRectMake(self.bounds.size.width * .1, self.bounds.size.height * .1, self.bounds.size.width * .8, self.bounds.size.height * .8);
@@ -80,6 +94,11 @@
     _circleLayer.lineWidth = lineWidth;
     
     [self.layer addSublayer:_circleLayer];
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    [self.layer setTransform:CATransform3DMakeScale(1, 1, 1)];
 }
 
 @end
